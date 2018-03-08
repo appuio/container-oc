@@ -1,8 +1,8 @@
-# docker-oc
+# container-oc
 
-`oc` client in a docker image.
+`oc` client in a container image.
 
-## Docker Images
+## Container Images
 
 - `mhutter/oc:v3.6`
 - `mhutter/oc:v3.7`
