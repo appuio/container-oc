@@ -1,8 +1,8 @@
 FROM centos:7
 
-ENV VERSION=v3.7.1 \
-    COMMIT=ab0f056 \
-    SHA256SUM=56e9dbff7e5e4ade1e92cc10ff1bd1ae2789ec400be0d8a5b2177fd6c465af21
+ENV VERSION=v3.7.2 \
+    COMMIT=282e43f \
+    SHA256SUM=abc89f025524eb205e433622e59843b09d2304cc913534c4ed8af627da238624
 
 RUN set -x && \
     ARCHIVE="openshift-origin-client-tools-${VERSION}-${COMMIT}-linux-64bit" && \
