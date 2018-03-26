@@ -1,6 +1,6 @@
 VERSIONS = $(notdir $(wildcard src/versions/*))
 
-all: $(addsuffix /Dockerfile, $(VERSIONS))
+all: clean $(addsuffix /Dockerfile, $(VERSIONS))
 
 v%/Dockerfile: src/Dockerfile
 	mkdir -p v$*
