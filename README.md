@@ -6,6 +6,7 @@
 
 - `mhutter/oc:v3.6`
 - `mhutter/oc:v3.7`
+- `mhutter/oc:v3.9`
 
 ## Development
 
