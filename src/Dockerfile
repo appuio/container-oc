@@ -1,11 +1,10 @@
 FROM centos:7
 
 ENV VERSION=%%VERSION%% \
-    COMMIT=%%COMMIT%% \
+    ARCHIVE=%%ARCHIVE%% \
     SHA256SUM=%%SHA256SUM%%
 
 RUN set -x && \
-    ARCHIVE="openshift-origin-client-tools-${VERSION}-${COMMIT}-linux-64bit" && \
     URL="https://github.com/openshift/origin/releases/download/${VERSION}/${ARCHIVE}.tar.gz" && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \

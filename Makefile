@@ -1,10 +1,9 @@
-VERSIONS = $(notdir $(wildcard src/versions/*))
+VERSIONS = v3.6 v3.7
 
 all: clean $(addsuffix /Dockerfile, $(VERSIONS))
 
 v%/Dockerfile: src/Dockerfile
-	mkdir -p v$*
-	sed -f src/versions/v$* src/Dockerfile > v$*/Dockerfile
+	./src/release.sh "v$*"
 
 clean:
 	rm -rfv v*
