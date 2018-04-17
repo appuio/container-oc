@@ -4,13 +4,19 @@
 
 ## Container Images
 
-- `mhutter/oc:v3.6`
-- `mhutter/oc:v3.7`
-- `mhutter/oc:v3.9`
+The built images are available from [Docker Hub][hub]
+
+- `appuio/oc:v3.6`
+- `appuio/oc:v3.7`
+- `appuio/oc:v3.9`
 
 ## Development
 
 - only hack files in `src/`
 - use `make` to regenerate files
 
-> [Manuel Hutter](https://hutter.io) - GitHub [@mhutter](https://github.com)
+> [APPUiO](https://appuio.ch) -
+> GitHub [@appuio](https://github.com/appuio) -
+> Twitter [@appuio](https://twitter.com/appuio)
+
+[hub]: https://hub.docker.com/r/appuio/oc/
