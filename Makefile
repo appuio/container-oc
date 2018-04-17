@@ -8,4 +8,9 @@ v%/Dockerfile: src/Dockerfile
 clean:
 	rm -rfv v*
 
-.PHONY: clean
+images: $(addprefix image/, $(VERSIONS))
+
+image/v%:
+	docker build -t local/oc:v$* v$*/
+
+.PHONY: clean images
