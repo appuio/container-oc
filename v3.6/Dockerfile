@@ -12,4 +12,6 @@ RUN set -x && \
     sha256sum -c /tmp/CHECKSUM && \
     tar -xzvf "/tmp/oc.tgz" && \
     cp "/tmp/${ARCHIVE}/oc" /bin/oc && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* && \
+    yum install -y git && \
+    yum clean all -y
