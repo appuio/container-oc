@@ -5,7 +5,7 @@ ENV VERSION=v3.7.2 \
     SHA256SUM=abc89f025524eb205e433622e59843b09d2304cc913534c4ed8af627da238624 \
     OKD_REPO_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
-    KUBECTL_PLUGINS_PATH="~/.kube/plugins"
+    KUBECTL_PLUGINS_PATH="/opt/kube/plugins"
 
 RUN set -x && \
     URL="${OKD_REPO_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
