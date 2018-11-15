@@ -1,4 +1,4 @@
-FROM docker.io/library/centos:7
+FROM centos:7
 
 ENV VERSION=v3.10.0 \
     ARCHIVE=openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit \
@@ -19,7 +19,3 @@ RUN set -x && \
     yum install -y git && \
     yum clean all -y && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH}
-
-WORKDIR /
-ENTRYPOINT ["/bin/oc"]
-CMD []
