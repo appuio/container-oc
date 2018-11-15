@@ -1,4 +1,4 @@
-FROM centos:7
+FROM docker.io/library/centos:7
 
 ENV VERSION=%%VERSION%% \
     ARCHIVE=%%ARCHIVE%% \

@@ -1,4 +1,4 @@
-FROM centos:7
+FROM docker.io/library/centos:7
 
 ENV VERSION=v3.6.1 \
     ARCHIVE=openshift-origin-client-tools-v3.6.1-008f2d5-linux-64bit \
