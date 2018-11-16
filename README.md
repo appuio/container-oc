@@ -15,6 +15,7 @@ The built images are available from [Docker Hub][hub]
 - `appuio/oc:v3.7`
 - `appuio/oc:v3.9`
 - `appuio/oc:v3.10`
+- `appuio/oc:v3.11`
 
 
 ## Development
