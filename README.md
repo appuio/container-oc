@@ -11,11 +11,11 @@ The main goal of this project is to provide a container image that can be used i
 
 The built images are available from [Docker Hub][hub]
 
-- `appuio/oc:v3.6`
-- `appuio/oc:v3.7`
-- `appuio/oc:v3.9`
-- `appuio/oc:v3.10`
-- `appuio/oc:v3.11`
+- `docker.io/appuio/oc:v3.6`
+- `docker.io/appuio/oc:v3.7`
+- `docker.io/appuio/oc:v3.9`
+- `docker.io/appuio/oc:v3.10`
+- `docker.io/appuio/oc:v3.11`
 
 
 ## Development
