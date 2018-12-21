@@ -27,4 +27,5 @@ RUN set -x && \
     rm -rf /tmp/* && \
     yum install -y git && \
     yum clean all -y && \
+    ln -s /bin/oc /bin/kubectl && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH}
