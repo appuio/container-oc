@@ -25,7 +25,7 @@ RUN set -x && \
     mv -v "/tmp/${ARCHIVE}/oc" /bin/oc && \
     mv -v "/tmp/linux-amd64/helm" /bin/helm && \
     rm -rf /tmp/* && \
-    yum install -y git && \
+    yum install -y git gettext && \
     yum clean all -y && \
     ln -s /bin/oc /bin/kubectl && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH}
