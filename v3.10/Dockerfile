@@ -1,10 +1,10 @@
 FROM docker.io/library/centos:7
 
 ENV VERSION=v3.10.0 \
-    HELM_VERSION=v2.12.2 \
+    HELM_VERSION=v2.12.3 \
     ARCHIVE=openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit \
     SHA256SUM=0f54235127884309d19b23e8e64e347f783efd6b5a94b49bfc4d0bf472efb5b8 \
-    HELM_SHA256SUM=edad6d5e594408b996b8d758a04948f89dab15fa6c6ea6daee3709f8c099df6d \
+    HELM_SHA256SUM=3425a1b37954dabdf2ba37d5d8a0bd24a225bb8454a06f12b115c55907809107 \
     OKD_REPO_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
     HELM_RELEASES_URL="https://storage.googleapis.com/kubernetes-helm" \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
@@ -25,7 +25,7 @@ RUN set -x && \
     mv -v "/tmp/${ARCHIVE}/oc" /bin/oc && \
     mv -v "/tmp/linux-amd64/helm" /bin/helm && \
     rm -rf /tmp/* && \
-    yum install -y git && \
+    yum install -y git gettext && \
     yum clean all -y && \
     ln -s /bin/oc /bin/kubectl && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH}
