@@ -1,10 +1,10 @@
 FROM docker.io/library/centos:7
 
 ENV VERSION=v3.10.0 \
-    HELM_VERSION=v2.12.3 \
+    HELM_VERSION=v2.13.0 \
     ARCHIVE=openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit \
     SHA256SUM=0f54235127884309d19b23e8e64e347f783efd6b5a94b49bfc4d0bf472efb5b8 \
-    HELM_SHA256SUM=3425a1b37954dabdf2ba37d5d8a0bd24a225bb8454a06f12b115c55907809107 \
+    HELM_SHA256SUM=15eca6ad225a8279de80c7ced42305e24bc5ac60bb7d96f2d2fa4af86e02c794 \
     OKD_REPO_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
     HELM_RELEASES_URL="https://storage.googleapis.com/kubernetes-helm" \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
