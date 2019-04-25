@@ -1,4 +1,4 @@
-FROM docker.io/library/centos:7
+FROM docker.io/library/centos:7@sha256:8d487d68857f5bc9595793279b33d082b03713341ddec91054382641d14db861
 
 ENV VERSION=v3.6.1 \
     HELM_VERSION=v2.13.1 \
