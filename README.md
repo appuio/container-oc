@@ -4,8 +4,9 @@
 
 [OpenShift][] client `oc` in a container image.
 
-The main goal of this project is to provide a container image that can be used in CI/CD pipelines to deploy apps to OpenShift.
+A container image that can be used in CI/CD pipelines to deploy apps to OpenShift.
 
+Also ships the binaries for `helm` and `kustomize`, for your convenience.
 
 ## Container Images
 
@@ -17,12 +18,10 @@ The built images are available from [Docker Hub][hub]
 - `docker.io/appuio/oc:v3.10`
 - `docker.io/appuio/oc:v3.11`
 
-
 ## Development
 
 - only hack files in `src/`
 - use `make` to regenerate files
-
 
 > [APPUiO](https://appuio.ch) -
 > GitHub [@appuio](https://github.com/appuio) -
