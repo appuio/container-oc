@@ -24,6 +24,7 @@ helm_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
 kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustomize/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
+  | sed '/-pre/d' \
   | head -n 1)
 
 helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
