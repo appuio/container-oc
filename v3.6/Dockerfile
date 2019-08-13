@@ -1,12 +1,12 @@
 FROM docker.io/library/centos:7@sha256:a799dd8a2ded4a83484bbae769d97655392b3f86533ceb7dd96bbac929809f3c
 
 ENV VERSION=v3.6.1 \
-    HELM_VERSION=v2.14.1 \
-    KUSTOMIZE_VERSION=v2.1.0 \
+    HELM_VERSION=v2.14.3 \
+    KUSTOMIZE_VERSION=v3.1.0 \
     ARCHIVE=openshift-origin-client-tools-v3.6.1-008f2d5-linux-64bit \
     SHA256SUM=922afb7a5642040ea7a6b780cd68eb1d15533b6376b503351a4c38a452338d11 \
-    HELM_SHA256SUM=804f745e6884435ef1343f4de8940f9db64f935cd9a55ad3d9153d064b7f5896 \
-    KUSTOMIZE_SHA256SUM=f12b81585fc70970c16cf8c9f9032c17fdbada288b500740bc001806fdce2f80 \
+    HELM_SHA256SUM=38614a665859c0f01c9c1d84fa9a5027364f936814d1e47839b05327e400bf55 \
+    KUSTOMIZE_SHA256SUM=73acc575cf4e035a91da63ecffcabe58f9572562b772c1eb7ed863991950afe8 \
     OKD_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
     HELM_RELEASES_URL="https://storage.googleapis.com/kubernetes-helm" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
