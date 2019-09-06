@@ -10,6 +10,7 @@ ENV VERSION=v3.11.0 \
     OKD_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
     HELM_RELEASES_URL="https://storage.googleapis.com/kubernetes-helm" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
+    JQ_URL="https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
     KUBECTL_PLUGINS_PATH="/opt/kube/plugins"
 
@@ -21,6 +22,7 @@ RUN set -x && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM_URL" -o /tmp/helm.tgz && \
     curl -sSL "$KUSTOMIZE_URL" -o /tmp/kustomize && \
+    curl -sSL "$JQ_URL" -o /tmp/jq && \
     echo "${SHA256SUM}  /tmp/oc.tgz" > /tmp/CHECKSUM && \
     echo "${HELM_SHA256SUM}  /tmp/helm.tgz" > /tmp/HELM_CHECKSUM && \
     echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize" > /tmp/KUSTOMIZE_CHECKSUM && \
@@ -29,10 +31,11 @@ RUN set -x && \
     sha256sum -c /tmp/KUSTOMIZE_CHECKSUM && \
     tar -xzvf /tmp/oc.tgz && \
     tar -xzvf /tmp/helm.tgz && \
-    chmod 755 /tmp/kustomize && \
+    chmod 755 /tmp/kustomize /tmp/jq && \
     mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
     mv -v "/tmp/linux-amd64/helm" /bin/ && \
     mv -v "/tmp/kustomize" /bin/ && \
+    mv -v "/tmp/jq" /bin/ && \
     ln -s /bin/oc /bin/kubectl && \
     rm -rf /tmp/* && \
     yum install -y git gettext && \
