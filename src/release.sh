@@ -42,6 +42,11 @@ kubeval_shasum=$(curl -sSL https://github.com/instrumenta/kubeval/releases/downl
   | sed -n 5p \
   | cut -f 1 -d ' ')
 
+sops_version=$(curl -sSL https://api.github.com/repos/mozilla/sops/releases  \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | head -n 1)
+
 echo "Newest ${ver} release: ${version}"
 
 url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
@@ -55,6 +60,7 @@ curl -sSL "$url" \
         -e "s/%%HELM_VERSION%%/${helm_version}/" \
         -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
         -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
+        -e "s/%%SOPS_VERSION%%/${sops_version}/" \
         -e "s/%%ARCHIVE%%/${archive}/" \
         -e "s/%%SHA256SUM%%/${shasum}/" \
         -e "s/%%HELM_SHA256SUM%%/${helm_shasum}/" \
