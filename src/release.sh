@@ -27,10 +27,19 @@ kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustom
   | sed '/-pre/d' \
   | head -n 1)
 
+kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/releases \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | head -n 1)
+
 helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
 
 kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/${kustomize_version}/checksums.txt \
   | head -n 1 \
+  | cut -f 1 -d ' ')
+
+kubeval_shasum=$(curl -sSL https://github.com/instrumenta/kubeval/releases/download/${kubeval_version}/checksums.txt \
+  | sed -n 5p \
   | cut -f 1 -d ' ')
 
 echo "Newest ${ver} release: ${version}"
@@ -45,9 +54,11 @@ curl -sSL "$url" \
         -e "s/%%VERSION%%/${version}/" \
         -e "s/%%HELM_VERSION%%/${helm_version}/" \
         -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
+        -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
         -e "s/%%ARCHIVE%%/${archive}/" \
         -e "s/%%SHA256SUM%%/${shasum}/" \
         -e "s/%%HELM_SHA256SUM%%/${helm_shasum}/" \
         -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
+        -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
         src/Dockerfile > "${ver}/Dockerfile"
     done
