@@ -19,12 +19,14 @@ version=$(curl -sS https://api.github.com/repos/openshift/origin/releases \
 helm_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
+  | sed '/v3\./d' \
   | head -n 1)
 
 kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustomize/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
-  | sed '/-pre/d' \
+  | grep '^kustomize/' \
+  | sed -e 's#^kustomize/##' -e '/-pre/d' \
   | head -n 1)
 
 kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/releases \
@@ -34,7 +36,7 @@ kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/rele
 
 helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
 
-kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/${kustomize_version}/checksums.txt \
+kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/${kustomize_version}/checksums.txt \
   | head -n 1 \
   | cut -f 1 -d ' ')
 
@@ -47,7 +49,12 @@ sops_version=$(curl -sSL https://api.github.com/repos/mozilla/sops/releases  \
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
-echo "Newest ${ver} release: ${version}"
+echo "Newest versions for ${ver} release:"
+echo "- oc: ${version}"
+echo "- helm: ${helm_version} (shasum: ${helm_shasum})"
+echo "- kustomize: ${kustomize_version} (shasum: ${kustomize_shasum})"
+echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
+echo "- sops: ${sops_version}"
 
 url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
 curl -sSL "$url" \

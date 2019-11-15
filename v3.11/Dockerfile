@@ -1,13 +1,13 @@
 FROM docker.io/library/centos:7@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa6313bd863151c4b26d7e5a5
 
 ENV VERSION=v3.11.0 \
-    HELM_VERSION=v2.14.3 \
-    KUSTOMIZE_VERSION=v3.1.0 \
+    HELM_VERSION=v2.16.1 \
+    KUSTOMIZE_VERSION=v3.4.0 \
     KUBEVAL_VERSION=0.14.0 \
     ARCHIVE=openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit \
     SHA256SUM=4b0f07428ba854174c58d2e38287e5402964c9a9355f6c359d1242efd0990da3 \
-    HELM_SHA256SUM=38614a665859c0f01c9c1d84fa9a5027364f936814d1e47839b05327e400bf55 \
-    KUSTOMIZE_SHA256SUM=73acc575cf4e035a91da63ecffcabe58f9572562b772c1eb7ed863991950afe8 \
+    HELM_SHA256SUM=7eebaaa2da4734242bbcdced62cc32ba8c7164a18792c8acdf16c77abffce202 \
+    KUSTOMIZE_SHA256SUM=eabfa641685b1a168c021191e6029f66125be94449b60eb12843da8df3b092ba \
     KUBEVAL_SHA256SUM=8b1b8c63df9ee3206113a3352e07474ea071610cfacf40a64db74c56e163f1e2 \
     SOPS_VERSION=3.4.0 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
@@ -22,19 +22,19 @@ ENV VERSION=v3.11.0 \
 RUN set -x && \
     URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM_URL="${HELM_RELEASES_URL}/helm-${HELM_VERSION}-linux-amd64.tar.gz" && \
-    KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION:1}_linux_amd64" && \
+    KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
     KUBEVAL_URL="${KUBEVAL_RELEASES_URL}/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM_URL" -o /tmp/helm.tgz && \
-    curl -sSL "$KUSTOMIZE_URL" -o /tmp/kustomize && \
+    curl -sSL "$KUSTOMIZE_URL" -o /tmp/kustomize.tgz && \
     curl -sSL "$KUBEVAL_URL" -o /tmp/kubeval.tgz && \
     curl -sSL "$JQ_URL" -o /tmp/jq && \
     curl -sSL "$SOPS_URL" -o /bin/sops && \
     echo "${SHA256SUM}  /tmp/oc.tgz" > /tmp/CHECKSUM && \
     echo "${HELM_SHA256SUM}  /tmp/helm.tgz" > /tmp/HELM_CHECKSUM && \
-    echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize" > /tmp/KUSTOMIZE_CHECKSUM && \
+    echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize.tgz" > /tmp/KUSTOMIZE_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
     sha256sum -c /tmp/CHECKSUM && \
     sha256sum -c /tmp/HELM_CHECKSUM && \
@@ -42,6 +42,7 @@ RUN set -x && \
     sha256sum -c /tmp/KUBEVAL_CHECKSUM && \
     tar -xzvf /tmp/oc.tgz && \
     tar -xzvf /tmp/helm.tgz && \
+    tar -xzvf /tmp/kustomize.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
     chmod 755 /tmp/kustomize /tmp/jq /bin/sops && \
     mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
