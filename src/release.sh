@@ -54,6 +54,7 @@ echo "- oc: ${version}"
 echo "- helm: ${helm_version} (shasum: ${helm_shasum})"
 echo "- kustomize: ${kustomize_version} (shasum: ${kustomize_shasum})"
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
+echo "- sops: ${sops_version}"
 
 url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
 curl -sSL "$url" \
