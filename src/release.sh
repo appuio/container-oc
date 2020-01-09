@@ -29,6 +29,12 @@ kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustom
   | sed -e 's#^kustomize/##' -e '/-pre/d' \
   | head -n 1)
 
+imagecleanup_version=$(curl -sS https://api.github.com/repos/appuio/image-cleanup/releases \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | sed '/v3\./d' \
+  | head -n 1)
+
 kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
