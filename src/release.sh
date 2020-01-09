@@ -43,7 +43,7 @@ kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/rele
 helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
 
 kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/${kustomize_version}/checksums.txt \
-  | head -n 1 \
+  | grep linux_amd64 \
   | cut -f 1 -d ' ')
 
 imagecleanup_shasum=$(curl -sSL https://github.com/appuio/image-cleanup/releases/download/${imagecleanup_version}/checksums.txt \
@@ -51,7 +51,7 @@ imagecleanup_shasum=$(curl -sSL https://github.com/appuio/image-cleanup/releases
   | cut -f 1 -d ' ')
 
 kubeval_shasum=$(curl -sSL https://github.com/instrumenta/kubeval/releases/download/${kubeval_version}/checksums.txt \
-  | sed -n 5p \
+  | grep linux-amd64 \
   | cut -f 1 -d ' ')
 
 sops_version=$(curl -sSL https://api.github.com/repos/mozilla/sops/releases  \
