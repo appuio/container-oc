@@ -26,7 +26,7 @@ RUN set -x && \
     URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM_URL="${HELM_RELEASES_URL}/helm-${HELM_VERSION}-linux-amd64.tar.gz" && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
-    IMAGE_CLEANUP_URL="${IMAGE_CLEANUP_RELEASES_URL}/${IMAGE_CLEANUP_VERSION}/imagecleanup-${IMAGE_CLEANUP_VERSION}_linux_amd64.tar.gz" && \
+    IMAGE_CLEANUP_URL="${IMAGE_CLEANUP_RELEASES_URL}/image-cleanup_${IMAGE_CLEANUP_VERSION}_linux_amd64.tar.gz" && \
     KUBEVAL_URL="${KUBEVAL_RELEASES_URL}/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     cd /tmp && \
@@ -50,6 +50,7 @@ RUN set -x && \
     tar -xzvf /tmp/oc.tgz && \
     tar -xzvf /tmp/helm.tgz && \
     tar -xzvf /tmp/kustomize.tgz && \
+    tar -xzvf /tmp/imagecleanup.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
     chmod 755 /tmp/kustomize /tmp/jq /bin/sops && \
     mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
