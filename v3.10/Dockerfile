@@ -26,7 +26,7 @@ RUN set -x && \
     URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM_URL="${HELM_RELEASES_URL}/helm-${HELM_VERSION}-linux-amd64.tar.gz" && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
-    IMAGE_CLEANUP_URL="${IMAGE_CLEANUP_RELEASES_URL}/${IMAGE_CLEANUP_VERSION}/image-cleanup_${IMAGE_CLEANUP_VERSION}_linux_amd64" && \
+    IMAGE_CLEANUP_URL="${IMAGE_CLEANUP_RELEASES_URL}/${IMAGE_CLEANUP_VERSION}/image-cleanup_linux_amd64" && \
     KUBEVAL_URL="${KUBEVAL_RELEASES_URL}/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     cd /tmp && \
