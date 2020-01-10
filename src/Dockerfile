@@ -40,7 +40,7 @@ RUN set -x && \
     echo "${SHA256SUM}  /tmp/oc.tgz" > /tmp/CHECKSUM && \
     echo "${HELM_SHA256SUM}  /tmp/helm.tgz" > /tmp/HELM_CHECKSUM && \
     echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize.tgz" > /tmp/KUSTOMIZE_CHECKSUM && \
-    echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/imagecleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
+    echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/image-cleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
     sha256sum -c /tmp/CHECKSUM && \
     sha256sum -c /tmp/HELM_CHECKSUM && \
