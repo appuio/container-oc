@@ -29,6 +29,11 @@ kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustom
   | sed -e 's#^kustomize/##' -e '/-pre/d' \
   | head -n 1)
 
+imagecleanup_version=$(curl -sS https://api.github.com/repos/appuio/image-cleanup/releases \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | head -n 1)
+
 kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
@@ -37,6 +42,10 @@ kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/rele
 helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
 
 kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/${kustomize_version}/checksums.txt \
+  | grep linux_amd64 \
+  | cut -f 1 -d ' ')
+
+imagecleanup_shasum=$(curl -sSL https://github.com/appuio/image-cleanup/releases/download/${imagecleanup_version}/checksums.txt \
   | grep linux_amd64 \
   | cut -f 1 -d ' ')
 
@@ -53,6 +62,7 @@ echo "Newest versions for ${ver} release:"
 echo "- oc: ${version}"
 echo "- helm: ${helm_version} (shasum: ${helm_shasum})"
 echo "- kustomize: ${kustomize_version} (shasum: ${kustomize_shasum})"
+echo "- image-cleanup: ${imagecleanup_version} (shasum: ${imagecleanup_shasum})"
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
 echo "- sops: ${sops_version}"
 
@@ -66,12 +76,14 @@ curl -sSL "$url" \
         -e "s/%%VERSION%%/${version}/" \
         -e "s/%%HELM_VERSION%%/${helm_version}/" \
         -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
+        -e "s/%%IMAGE_CLEANUP_VERSION%%/${imagecleanup_version}/" \
         -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
         -e "s/%%SOPS_VERSION%%/${sops_version}/" \
         -e "s/%%ARCHIVE%%/${archive}/" \
         -e "s/%%SHA256SUM%%/${shasum}/" \
         -e "s/%%HELM_SHA256SUM%%/${helm_shasum}/" \
         -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
+        -e "s/%%IMAGE_CLEANUP_SHA256SUM%%/${imagecleanup_shasum}/" \
         -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
         src/Dockerfile > "${ver}/Dockerfile"
     done
