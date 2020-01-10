@@ -3,13 +3,13 @@ FROM docker.io/library/centos:7@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa
 ENV VERSION=v3.11.0 \
     HELM_VERSION=v2.16.1 \
     KUSTOMIZE_VERSION=v3.5.3 \
-    IMAGE_CLEANUP_VERSION=v0.1.0 \
+    IMAGE_CLEANUP_VERSION=v0.1.1 \
     KUBEVAL_VERSION=0.14.0 \
     ARCHIVE=openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit \
     SHA256SUM=4b0f07428ba854174c58d2e38287e5402964c9a9355f6c359d1242efd0990da3 \
     HELM_SHA256SUM=7eebaaa2da4734242bbcdced62cc32ba8c7164a18792c8acdf16c77abffce202 \
-    IMAGE_CLEANUP_SHA256SUM=94415e6020f7f02bc05b0eaa3019c16d956d664203567f8744ccb004bdba557f \
     KUSTOMIZE_SHA256SUM=e0b86d6fc5f46b83b9ee339e98bf265354b66d1ea9bf168a2077d6b5914afd78 \
+    IMAGE_CLEANUP_SHA256SUM=0b666323e2137515349ed9558ca7ecf167b8f00f11f556d20f75cc858831a638 \
     KUBEVAL_SHA256SUM=8b1b8c63df9ee3206113a3352e07474ea071610cfacf40a64db74c56e163f1e2 \
     SOPS_VERSION=v3.5.0 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
@@ -40,7 +40,7 @@ RUN set -x && \
     echo "${SHA256SUM}  /tmp/oc.tgz" > /tmp/CHECKSUM && \
     echo "${HELM_SHA256SUM}  /tmp/helm.tgz" > /tmp/HELM_CHECKSUM && \
     echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize.tgz" > /tmp/KUSTOMIZE_CHECKSUM && \
-    echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/imagecleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
+    echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/image-cleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
     sha256sum -c /tmp/CHECKSUM && \
     sha256sum -c /tmp/HELM_CHECKSUM && \
