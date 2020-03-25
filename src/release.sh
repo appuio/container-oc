@@ -11,41 +11,53 @@ fi
 cd "$(dirname "$0")/.."
 mkdir -p "$ver"
 
-version=$(curl -sS https://api.github.com/repos/openshift/origin/releases \
+api_user=""
+if [ -n "${GITHUB_API_USER}" ]; then
+    api_user="${GITHUB_API_USER}@"
+fi
+
+version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/releases \
   | jq --arg ver "$ver" --raw-output \
       '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
   | head -n 1)
 
-helm_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
+helm2_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | sed '/v3\./d' \
   | head -n 1)
+helm3_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | sed '/v2\./d' \
+  | head -n 1)
 
-kustomize_version=$(curl -sS https://api.github.com/repos/kubernetes-sigs/kustomize/releases \
+kustomize_version=$(curl -sS https://${api_user}api.github.com/repos/kubernetes-sigs/kustomize/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | grep '^kustomize/' \
   | sed -e 's#^kustomize/##' -e '/-pre/d' \
   | head -n 1)
 
-imagecleanup_version=$(curl -sS https://api.github.com/repos/appuio/image-cleanup/releases \
+seiso_version=$(curl -sS https://${api_user}api.github.com/repos/appuio/seiso/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
-kubeval_version=$(curl -sS https://api.github.com/repos/instrumenta/kubeval/releases \
+kubeval_version=$(curl -sS https://${api_user}api.github.com/repos/instrumenta/kubeval/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
-helm_shasum=$(curl -sS https://storage.googleapis.com/kubernetes-helm/helm-${helm_version}-linux-amd64.tar.gz.sha256)
+helm2_shasum=$(curl -sS https://get.helm.sh/helm-${helm2_version}-linux-amd64.tar.gz.sha256)
+helm3_shasum=$(curl -sS https://get.helm.sh/helm-${helm3_version}-linux-amd64.tar.gz.sha256sum \
+  | cut -f 1 -d ' ')
 
 kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/${kustomize_version}/checksums.txt \
   | grep linux_amd64 \
   | cut -f 1 -d ' ')
 
-imagecleanup_shasum=$(curl -sSL https://github.com/appuio/image-cleanup/releases/download/${imagecleanup_version}/checksums.txt \
+seiso_shasum=$(curl -sSL https://github.com/appuio/seiso/releases/download/${seiso_version}/checksums.txt \
   | grep linux_amd64 \
   | cut -f 1 -d ' ')
 
@@ -53,16 +65,17 @@ kubeval_shasum=$(curl -sSL https://github.com/instrumenta/kubeval/releases/downl
   | grep linux-amd64 \
   | cut -f 1 -d ' ')
 
-sops_version=$(curl -sSL https://api.github.com/repos/mozilla/sops/releases  \
+sops_version=$(curl -sSL https://${api_user}api.github.com/repos/mozilla/sops/releases  \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
 echo "Newest versions for ${ver} release:"
 echo "- oc: ${version}"
-echo "- helm: ${helm_version} (shasum: ${helm_shasum})"
+echo "- helm2: ${helm2_version} (shasum: ${helm2_shasum})"
+echo "- helm3: ${helm3_version} (shasum: ${helm3_shasum})"
 echo "- kustomize: ${kustomize_version} (shasum: ${kustomize_shasum})"
-echo "- image-cleanup: ${imagecleanup_version} (shasum: ${imagecleanup_shasum})"
+echo "- seiso: ${seiso_version} (shasum: ${seiso_shasum})"
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
 echo "- sops: ${sops_version}"
 
@@ -74,16 +87,18 @@ curl -sSL "$url" \
       archive=${archive%.tar.gz}
       sed \
         -e "s/%%VERSION%%/${version}/" \
-        -e "s/%%HELM_VERSION%%/${helm_version}/" \
+        -e "s/%%HELM2_VERSION%%/${helm2_version}/" \
+        -e "s/%%HELM3_VERSION%%/${helm3_version}/" \
         -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
-        -e "s/%%IMAGE_CLEANUP_VERSION%%/${imagecleanup_version}/" \
+        -e "s/%%SEISO_VERSION%%/${seiso_version}/" \
         -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
         -e "s/%%SOPS_VERSION%%/${sops_version}/" \
         -e "s/%%ARCHIVE%%/${archive}/" \
         -e "s/%%SHA256SUM%%/${shasum}/" \
-        -e "s/%%HELM_SHA256SUM%%/${helm_shasum}/" \
+        -e "s/%%HELM2_SHA256SUM%%/${helm2_shasum}/" \
+        -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
         -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
-        -e "s/%%IMAGE_CLEANUP_SHA256SUM%%/${imagecleanup_shasum}/" \
+        -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \
         -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
         src/Dockerfile > "${ver}/Dockerfile"
     done
