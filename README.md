@@ -25,11 +25,11 @@ The built images are available from [Docker Hub][hub]
 
 ## Caveats
 
-* Newer versions of this image do not include `image-cleanup` anymore.
+* `image-cleanup` will be removed by June 1, 2020.
   It has been renamed to `seiso` and its usage has changed too (see [seiso])
 * This image now includes both Helm v2 and v3. Helm v3 is available as `helm3`,
   and `helm` currently symlinks to `helm2`.
-  Helm v3 is likely going to be the default in the future.
+  Helm v3 is going to be the default by June 1, 2020.
 
 ## Development
 
