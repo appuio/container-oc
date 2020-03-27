@@ -24,6 +24,8 @@ ENV VERSION=%%VERSION%% \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
     KUBECTL_PLUGINS_PATH="/opt/kube/plugins"
 
+COPY opt/helm2-deprecation.sh /opt/
+
 RUN set -x && \
     URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM2_URL="${HELM_RELEASES_URL}/helm-${HELM2_VERSION}-linux-amd64.tar.gz" && \
@@ -68,7 +70,7 @@ RUN set -x && \
     mv -v "/tmp/seiso" /bin/ && \
     mv -v "/tmp/jq" /bin/ && \
     ln -s /bin/oc /bin/kubectl && \
-    ln -s /bin/helm2 /bin/helm && \
+    ln -s /opt/helm2-deprecation.sh /bin/helm && \
     rm -rf /tmp/* && \
     yum install -y git gettext && \
     yum clean all -y && \

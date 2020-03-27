@@ -21,12 +21,12 @@ version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/rele
       '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
   | head -n 1)
 
-helm2_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
+helm2_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | sed '/v3\./d' \
   | head -n 1)
-helm3_version=$(curl -sS https://api.github.com/repos/helm/helm/releases \
+helm3_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | sed '/v2\./d' \
@@ -100,5 +100,6 @@ curl -sSL "$url" \
         -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
         -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \
         -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
-        src/Dockerfile > "${ver}/Dockerfile"
+        src/Dockerfile > "${ver}/Dockerfile" && \
+      cp -r src/opt "${ver}/"
     done

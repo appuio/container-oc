@@ -1,14 +1,14 @@
 FROM docker.io/library/centos:7@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa6313bd863151c4b26d7e5a5
 
 ENV VERSION=v3.9.0 \
-    HELM2_VERSION=v2.16.4 \
+    HELM2_VERSION=v2.16.5 \
     HELM3_VERSION=v3.1.2 \
     KUSTOMIZE_VERSION=v3.5.4 \
     SEISO_VERSION=v0.4.0 \
     KUBEVAL_VERSION=0.14.0 \
     ARCHIVE=openshift-origin-client-tools-v3.9.0-191fece-linux-64bit \
     SHA256SUM=6ed2fb1579b14b4557e4450a807c97cd1b68a6c727cd1e12deedc5512907222e \
-    HELM2_SHA256SUM=dad9d2ff275eda0a795269b54298af5209d55d2ae51ff8f5b64bcee92b31bb05 \
+    HELM2_SHA256SUM=7cd54f56f787d62fd7311d5ae2c26e31310d37d27e3622014e5c769bec008cab \
     HELM3_SHA256SUM=e6be589df85076108c33e12e60cfb85dcd82c5d756a6f6ebc8de0ee505c9fd4c \
     KUSTOMIZE_SHA256SUM=5cdeb2af81090ad428e3a94b39779b3e477e2bc946be1fe28714d1ca28502f6a \
     SEISO_SHA256SUM=7a691a4814d2017fd386e2563877687e036ed481475f84598f00190d95a4cc9d \
@@ -23,6 +23,8 @@ ENV VERSION=v3.9.0 \
     JQ_URL="https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
     KUBECTL_PLUGINS_PATH="/opt/kube/plugins"
+
+COPY opt/helm2-deprecation.sh /opt/
 
 RUN set -x && \
     URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
@@ -68,7 +70,7 @@ RUN set -x && \
     mv -v "/tmp/seiso" /bin/ && \
     mv -v "/tmp/jq" /bin/ && \
     ln -s /bin/oc /bin/kubectl && \
-    ln -s /bin/helm2 /bin/helm && \
+    ln -s /opt/helm2-deprecation.sh /bin/helm && \
     rm -rf /tmp/* && \
     yum install -y git gettext && \
     yum clean all -y && \

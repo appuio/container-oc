@@ -34,7 +34,8 @@ The built images are available from [Docker Hub][hub]
 ## Development
 
 - only hack files in `src/`
-- run `export GITHUB_API_USER=<your-github-user-name>:<your-revocable-PAT>` (see [GitHub API rate limiting][api-limit])
+- run `export GITHUB_API_USER=<your-github-user-name>:<your-revocable-personal-access-token>`
+  (see [GitHub API rate limiting][api-limit]; create a token at https://github.com/settings/tokens)
 - run `make` to regenerate Dockerfiles
 - run `make images` to verify that images are building successfully
 
