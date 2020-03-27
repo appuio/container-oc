@@ -23,9 +23,19 @@ The built images are available from [Docker Hub][hub]
 - `docker.io/appuio/oc:v3.10`
 - `docker.io/appuio/oc:v3.11`
 
+## Caveats
+
+* `image-cleanup` will be removed by June 1, 2020.
+  It has been renamed to `seiso` and its usage has changed too (see [seiso])
+* This image now includes both Helm v2 and v3. Helm v3 is available as `helm3`,
+  and `helm` currently symlinks to `helm2`.
+  Helm v3 is going to be the default by June 1, 2020.
+
 ## Development
 
 - only hack files in `src/`
+- run `export GITHUB_API_USER=<your-github-user-name>:<your-revocable-personal-access-token>`
+  (see [GitHub API rate limiting][api-limit]; create a token at https://github.com/settings/tokens)
 - run `make` to regenerate Dockerfiles
 - run `make images` to verify that images are building successfully
 
@@ -35,3 +45,5 @@ The built images are available from [Docker Hub][hub]
 
 [hub]: https://hub.docker.com/r/appuio/oc/tags
 [OpenShift]: https://github.com/openshift/origin
+[api-limit]: https://developer.github.com/v3/#rate-limiting
+[seiso]: https://github.com/appuio/seiso
