@@ -60,7 +60,7 @@ kustomize_shasum=$(curl -sSL https://github.com/kubernetes-sigs/kustomize/releas
   | cut -f 1 -d ' ')
 
 seiso_shasum=$(curl -sSL https://github.com/appuio/seiso/releases/download/${seiso_version}/checksums.txt \
-  | grep linux_amd64 \
+  | grep linux_amd64$ \
   | cut -f 1 -d ' ')
 
 image_cleanup_shasum=$(curl -sSL https://github.com/appuio/seiso/releases/download/${image_cleanup_version}/checksums.txt \
