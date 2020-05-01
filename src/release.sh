@@ -16,11 +16,30 @@ if [ -n "${GITHUB_API_USER}" ]; then
     api_user="${GITHUB_API_USER}@"
 fi
 
-okd_download_base_url='https://github.com/openshift/origin/releases/download'
-version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/releases \
-  | jq --arg ver "$ver" --raw-output \
-      '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
-  | head -n 1)
+okd_download_base_url=""
+version=""
+archive=""
+shasum=""
+if [[ $ver == 'v4'* ]]; then
+  # OpenShift v4
+  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/clients/oc/"
+  archive="oc"
+  shasum=""
+  version=${ver:1}
+else
+  # OpenShift v3
+  okd_download_base_url="https://github.com/openshift/origin/releases/download"
+  version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/releases \
+    | jq --arg ver "$ver" --raw-output \
+        '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
+    | head -n 1)
+  url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
+  while read -r sha filename; do \
+    shasum=${sha}
+    archive="$(basename "$filename")"
+    archive=${archive%.tar.gz}
+  done <<<$(curl -sSL "$url" | grep 'client-tools.*linux-64bit.tar.gz$')
+fi
 
 helm2_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
@@ -86,15 +105,6 @@ echo "- seiso: ${seiso_version} (shasum: ${seiso_shasum})"
 echo "- image-cleanup: ${image_cleanup_version} (shasum: ${image_cleanup_shasum})"
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
 echo "- sops: ${sops_version}"
-
-archive=""
-shasum=""
-url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
-while read -r sha filename; do \
-  shasum=${sha}
-  archive="$(basename "$filename")"
-  archive=${archive%.tar.gz}
-done <<<$(curl -sSL "$url" | grep 'client-tools.*linux-64bit.tar.gz$')
 
 sed \
   -e "s/%%VERSION%%/${version}/" \

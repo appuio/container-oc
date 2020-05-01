@@ -17,6 +17,11 @@ Also ships the binaries for `helm`, `kustomize`, `kubeval` and `sops`, for your 
 
 The built images are available from [Docker Hub][hub]
 
+- `docker.io/appuio/oc:v4.5`
+- `docker.io/appuio/oc:v4.4`
+- `docker.io/appuio/oc:v4.3`
+- `docker.io/appuio/oc:v4.2`
+- `docker.io/appuio/oc:v4.1`
 - `docker.io/appuio/oc:v3.11`
 - `docker.io/appuio/oc:v3.10`
 - `docker.io/appuio/oc:v3.9`
