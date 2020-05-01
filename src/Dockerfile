@@ -17,7 +17,7 @@ ENV VERSION=%%VERSION%% \
     KUBEVAL_SHA256SUM=%%KUBEVAL_SHA256SUM%% \
     SOPS_VERSION=%%SOPS_VERSION%% \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
-    OKD_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
+    OKD_DOWNLOAD_BASE_URL="%%OKD_DOWNLOAD_BASE_URL%%" \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
     SEISO_RELEASES_URL="https://github.com/appuio/seiso/releases/download" \
@@ -30,7 +30,7 @@ COPY opt/helm2-deprecation.sh /opt/
 COPY image-cleanup.sh /bin/image-cleanup
 
 RUN set -x && \
-    URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
+    URL="${OKD_DOWNLOAD_BASE_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM2_URL="${HELM_RELEASES_URL}/helm-${HELM2_VERSION}-linux-amd64.tar.gz" && \
     HELM3_URL="${HELM_RELEASES_URL}/helm-${HELM3_VERSION}-linux-amd64.tar.gz" && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \

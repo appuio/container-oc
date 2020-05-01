@@ -16,6 +16,7 @@ if [ -n "${GITHUB_API_USER}" ]; then
     api_user="${GITHUB_API_USER}@"
 fi
 
+okd_download_base_url='https://github.com/openshift/origin/releases/download'
 version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/releases \
   | jq --arg ver "$ver" --raw-output \
       '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
@@ -104,6 +105,7 @@ sed \
   -e "s/%%IMAGE_CLEANUP_VERSION%%/${image_cleanup_version}/" \
   -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
   -e "s/%%SOPS_VERSION%%/${sops_version}/" \
+  -e "s@%%OKD_DOWNLOAD_BASE_URL%%@${okd_download_base_url}@" \
   -e "s/%%ARCHIVE%%/${archive}/" \
   -e "s/%%SHA256SUM%%/${shasum}/" \
   -e "s/%%HELM2_SHA256SUM%%/${helm2_shasum}/" \
