@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -86,30 +86,32 @@ echo "- image-cleanup: ${image_cleanup_version} (shasum: ${image_cleanup_shasum}
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
 echo "- sops: ${sops_version}"
 
+archive=""
+shasum=""
 url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
-curl -sSL "$url" \
-  | grep 'client-tools.*linux-64bit.tar.gz$' \
-  | while read -r shasum filename; do \
-      archive="$(basename "$filename")"
-      archive=${archive%.tar.gz}
-      sed \
-        -e "s/%%VERSION%%/${version}/" \
-        -e "s/%%HELM2_VERSION%%/${helm2_version}/" \
-        -e "s/%%HELM3_VERSION%%/${helm3_version}/" \
-        -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
-        -e "s/%%SEISO_VERSION%%/${seiso_version}/" \
-        -e "s/%%IMAGE_CLEANUP_VERSION%%/${image_cleanup_version}/" \
-        -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
-        -e "s/%%SOPS_VERSION%%/${sops_version}/" \
-        -e "s/%%ARCHIVE%%/${archive}/" \
-        -e "s/%%SHA256SUM%%/${shasum}/" \
-        -e "s/%%HELM2_SHA256SUM%%/${helm2_shasum}/" \
-        -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
-        -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
-        -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \
-        -e "s/%%IMAGE_CLEANUP_SHA256SUM%%/${image_cleanup_shasum}/" \
-        -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
-        src/Dockerfile > "${ver}/Dockerfile" && \
-      cp -r src/opt "${ver}/" && \
-      cp "src/image-cleanup.sh" "${ver}/"
-    done
+while read -r sha filename; do \
+  shasum=${sha}
+  archive="$(basename "$filename")"
+  archive=${archive%.tar.gz}
+done <<<$(curl -sSL "$url" | grep 'client-tools.*linux-64bit.tar.gz$')
+
+sed \
+  -e "s/%%VERSION%%/${version}/" \
+  -e "s/%%HELM2_VERSION%%/${helm2_version}/" \
+  -e "s/%%HELM3_VERSION%%/${helm3_version}/" \
+  -e "s/%%KUSTOMIZE_VERSION%%/${kustomize_version}/" \
+  -e "s/%%SEISO_VERSION%%/${seiso_version}/" \
+  -e "s/%%IMAGE_CLEANUP_VERSION%%/${image_cleanup_version}/" \
+  -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
+  -e "s/%%SOPS_VERSION%%/${sops_version}/" \
+  -e "s/%%ARCHIVE%%/${archive}/" \
+  -e "s/%%SHA256SUM%%/${shasum}/" \
+  -e "s/%%HELM2_SHA256SUM%%/${helm2_shasum}/" \
+  -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
+  -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
+  -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \
+  -e "s/%%IMAGE_CLEANUP_SHA256SUM%%/${image_cleanup_shasum}/" \
+  -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
+  src/Dockerfile > "${ver}/Dockerfile" && \
+cp -r src/opt "${ver}/" && \
+cp "src/image-cleanup.sh" "${ver}/"
