@@ -20,12 +20,14 @@ okd_download_base_url=""
 version=""
 archive=""
 shasum=""
+oc_tool_copy_command=""
 if [[ $ver == 'v4'* ]]; then
   # OpenShift v4
-  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/clients/oc/"
-  archive="oc"
+  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/clients/oc"
+  archive="linux/oc"
   shasum=""
   version=${ver:1}
+  oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
 else
   # OpenShift v3
   okd_download_base_url="https://github.com/openshift/origin/releases/download"
@@ -39,6 +41,7 @@ else
     archive="$(basename "$filename")"
     archive=${archive%.tar.gz}
   done <<<$(curl -sSL "$url" | grep 'client-tools.*linux-64bit.tar.gz$')
+  oc_tool_copy_command='mv -v "/tmp/${ARCHIVE}/oc" /bin/'
 fi
 
 helm2_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
@@ -116,8 +119,9 @@ sed \
   -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
   -e "s/%%SOPS_VERSION%%/${sops_version}/" \
   -e "s@%%OKD_DOWNLOAD_BASE_URL%%@${okd_download_base_url}@" \
-  -e "s/%%ARCHIVE%%/${archive}/" \
+  -e "s@%%ARCHIVE%%@${archive}@" \
   -e "s/%%SHA256SUM%%/${shasum}/" \
+  -e "s@%%OC_TOOL_COPY_COMMAND%%@${oc_tool_copy_command}@" \
   -e "s/%%HELM2_SHA256SUM%%/${helm2_shasum}/" \
   -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
   -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \

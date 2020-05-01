@@ -55,7 +55,7 @@ RUN set -x && \
     echo "${SEISO_SHA256SUM}  /tmp/seiso" > /tmp/SEISO_CHECKSUM && \
     echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/image-cleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
-    sha256sum -c /tmp/CHECKSUM && \
+    [ ! -z "$SHA256SUM" ] && sha256sum -c /tmp/CHECKSUM || echo "oc sha not checked" && \
     sha256sum -c /tmp/HELM2_CHECKSUM && \
     sha256sum -c /tmp/HELM3_CHECKSUM && \
     sha256sum -c /tmp/KUSTOMIZE_CHECKSUM && \

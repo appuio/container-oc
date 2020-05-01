@@ -7,7 +7,7 @@ ENV VERSION=4.3 \
     SEISO_VERSION=v0.5.1 \
     IMAGE_CLEANUP_VERSION=v0.3.0-rc.1 \
     KUBEVAL_VERSION=0.15.0 \
-    ARCHIVE=oc \
+    ARCHIVE=linux/oc \
     SHA256SUM= \
     HELM2_SHA256SUM=e38fea59bc382feb0f80322d582266465d76ab72acdc0079c2350cc3fd8a3f4c \
     HELM3_SHA256SUM=7ca15cb5e3a76393eccd7389f2b3d20082b8c535b6689882613bfcc4a7d07c23 \
@@ -17,7 +17,7 @@ ENV VERSION=4.3 \
     KUBEVAL_SHA256SUM=70bff2642a2886c0d9ebea452ffb81f333a956e26bbe0826fd7c6797e343e5aa \
     SOPS_VERSION=v3.5.0 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
-    OKD_DOWNLOAD_BASE_URL="https://mirror.openshift.com/pub/openshift-v4/clients/oc/" \
+    OKD_DOWNLOAD_BASE_URL="https://mirror.openshift.com/pub/openshift-v4/clients/oc" \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
     SEISO_RELEASES_URL="https://github.com/appuio/seiso/releases/download" \
@@ -55,7 +55,7 @@ RUN set -x && \
     echo "${SEISO_SHA256SUM}  /tmp/seiso" > /tmp/SEISO_CHECKSUM && \
     echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/image-cleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
-    sha256sum -c /tmp/CHECKSUM && \
+    [ ! -z "$SHA256SUM" ] && sha256sum -c /tmp/CHECKSUM || echo "oc sha not checked" && \
     sha256sum -c /tmp/HELM2_CHECKSUM && \
     sha256sum -c /tmp/HELM3_CHECKSUM && \
     sha256sum -c /tmp/KUSTOMIZE_CHECKSUM && \
@@ -71,7 +71,7 @@ RUN set -x && \
     tar -xzvf /tmp/kustomize.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
     chmod 755 /tmp/kustomize /tmp/seiso /tmp/jq /bin/sops /tmp/image-cleanup && \
-    mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
+    mv -v "/tmp/oc" /bin/ && \
     mv -v "/tmp/kubeval" /bin/ && \
     mv -v "/tmp/kustomize" /bin/ && \
     mv -v "/tmp/seiso" /bin/ && \
