@@ -2,7 +2,7 @@ FROM docker.io/library/centos:7@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa
 
 ENV VERSION=v3.10.0 \
     HELM2_VERSION=v2.16.6 \
-    HELM3_VERSION=v3.1.2 \
+    HELM3_VERSION=v3.1.3 \
     KUSTOMIZE_VERSION=v3.5.4 \
     SEISO_VERSION=v0.5.1 \
     IMAGE_CLEANUP_VERSION=v0.3.0-rc.1 \
@@ -10,14 +10,14 @@ ENV VERSION=v3.10.0 \
     ARCHIVE=openshift-origin-client-tools-v3.10.0-dd10d17-linux-64bit \
     SHA256SUM=0f54235127884309d19b23e8e64e347f783efd6b5a94b49bfc4d0bf472efb5b8 \
     HELM2_SHA256SUM=e38fea59bc382feb0f80322d582266465d76ab72acdc0079c2350cc3fd8a3f4c \
-    HELM3_SHA256SUM=e6be589df85076108c33e12e60cfb85dcd82c5d756a6f6ebc8de0ee505c9fd4c \
+    HELM3_SHA256SUM=7ca15cb5e3a76393eccd7389f2b3d20082b8c535b6689882613bfcc4a7d07c23 \
     KUSTOMIZE_SHA256SUM=5cdeb2af81090ad428e3a94b39779b3e477e2bc946be1fe28714d1ca28502f6a \
     SEISO_SHA256SUM=fbb0450210385d660d3b516129e059a8ea00f65c64b3f229e17557ba2465b161 \
     IMAGE_CLEANUP_SHA256SUM=14f64a616f17c49008a5e66c4078e6870f07a2a6be24d8ddd932396a22ee0607 \
     KUBEVAL_SHA256SUM=70bff2642a2886c0d9ebea452ffb81f333a956e26bbe0826fd7c6797e343e5aa \
     SOPS_VERSION=v3.5.0 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
-    OKD_RELEASES_URL="https://github.com/openshift/origin/releases/download" \
+    OKD_DOWNLOAD_BASE_URL="https://github.com/openshift/origin/releases/download" \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
     SEISO_RELEASES_URL="https://github.com/appuio/seiso/releases/download" \
@@ -30,7 +30,7 @@ COPY opt/helm2-deprecation.sh /opt/
 COPY image-cleanup.sh /bin/image-cleanup
 
 RUN set -x && \
-    URL="${OKD_RELEASES_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
+    URL="${OKD_DOWNLOAD_BASE_URL}/${VERSION}/${ARCHIVE}.tar.gz" && \
     HELM2_URL="${HELM_RELEASES_URL}/helm-${HELM2_VERSION}-linux-amd64.tar.gz" && \
     HELM3_URL="${HELM_RELEASES_URL}/helm-${HELM3_VERSION}-linux-amd64.tar.gz" && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
@@ -55,7 +55,7 @@ RUN set -x && \
     echo "${SEISO_SHA256SUM}  /tmp/seiso" > /tmp/SEISO_CHECKSUM && \
     echo "${IMAGE_CLEANUP_SHA256SUM}  /tmp/image-cleanup" > /tmp/IMAGE_CLEANUP_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
-    sha256sum -c /tmp/CHECKSUM && \
+    [ ! -z "$SHA256SUM" ] && sha256sum -c /tmp/CHECKSUM || echo "oc sha not checked" && \
     sha256sum -c /tmp/HELM2_CHECKSUM && \
     sha256sum -c /tmp/HELM3_CHECKSUM && \
     sha256sum -c /tmp/KUSTOMIZE_CHECKSUM && \

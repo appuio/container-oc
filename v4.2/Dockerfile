@@ -1,14 +1,14 @@
 FROM docker.io/library/centos:7@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa6313bd863151c4b26d7e5a5
 
-ENV VERSION=v3.11.0 \
+ENV VERSION=4.2 \
     HELM2_VERSION=v2.16.6 \
     HELM3_VERSION=v3.1.3 \
     KUSTOMIZE_VERSION=v3.5.4 \
     SEISO_VERSION=v0.5.1 \
     IMAGE_CLEANUP_VERSION=v0.3.0-rc.1 \
     KUBEVAL_VERSION=0.15.0 \
-    ARCHIVE=openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit \
-    SHA256SUM=4b0f07428ba854174c58d2e38287e5402964c9a9355f6c359d1242efd0990da3 \
+    ARCHIVE=linux/oc \
+    SHA256SUM= \
     HELM2_SHA256SUM=e38fea59bc382feb0f80322d582266465d76ab72acdc0079c2350cc3fd8a3f4c \
     HELM3_SHA256SUM=7ca15cb5e3a76393eccd7389f2b3d20082b8c535b6689882613bfcc4a7d07c23 \
     KUSTOMIZE_SHA256SUM=5cdeb2af81090ad428e3a94b39779b3e477e2bc946be1fe28714d1ca28502f6a \
@@ -17,7 +17,7 @@ ENV VERSION=v3.11.0 \
     KUBEVAL_SHA256SUM=70bff2642a2886c0d9ebea452ffb81f333a956e26bbe0826fd7c6797e343e5aa \
     SOPS_VERSION=v3.5.0 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
-    OKD_DOWNLOAD_BASE_URL="https://github.com/openshift/origin/releases/download" \
+    OKD_DOWNLOAD_BASE_URL="https://mirror.openshift.com/pub/openshift-v4/clients/oc" \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
     SEISO_RELEASES_URL="https://github.com/appuio/seiso/releases/download" \
@@ -71,7 +71,7 @@ RUN set -x && \
     tar -xzvf /tmp/kustomize.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
     chmod 755 /tmp/kustomize /tmp/seiso /tmp/jq /bin/sops /tmp/image-cleanup && \
-    mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
+    mv -v "/tmp/oc" /bin/ && \
     mv -v "/tmp/kubeval" /bin/ && \
     mv -v "/tmp/kustomize" /bin/ && \
     mv -v "/tmp/seiso" /bin/ && \

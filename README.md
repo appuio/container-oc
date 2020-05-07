@@ -17,17 +17,22 @@ Also ships the binaries for `helm`, `kustomize`, `kubeval` and `sops`, for your 
 
 The built images are available from [Docker Hub][hub]
 
-- `docker.io/appuio/oc:v3.6`
-- `docker.io/appuio/oc:v3.7`
-- `docker.io/appuio/oc:v3.9`
-- `docker.io/appuio/oc:v3.10`
+- `docker.io/appuio/oc:v4.5`
+- `docker.io/appuio/oc:v4.4`
+- `docker.io/appuio/oc:v4.3`
+- `docker.io/appuio/oc:v4.2`
+- `docker.io/appuio/oc:v4.1`
 - `docker.io/appuio/oc:v3.11`
+- `docker.io/appuio/oc:v3.10`
+- `docker.io/appuio/oc:v3.9`
+- `docker.io/appuio/oc:v3.7`
+- `docker.io/appuio/oc:v3.6`
 
 ## Caveats
 
-* `image-cleanup` will be removed by June 1, 2020.
+- `image-cleanup` will be removed by June 1, 2020.
   It has been renamed to `seiso` and its usage has changed too (see [seiso])
-* This image now includes both Helm v2 and v3. Helm v3 is available as `helm3`,
+- This image now includes both Helm v2 and v3. Helm v3 is available as `helm3`,
   and `helm` currently symlinks to `helm2`.
   Helm v3 is going to be the default by June 1, 2020.
 
