@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        oc:
+          - "3.6"
+          - "3.7"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "4.1"
+          - "4.2"
+          - "4.3"
+          - "4.4"
+          - "4.5"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Docker build
+        uses: docker/build-push-action@v2
+        with:
+          context: "v${{ matrix.oc }}"
+          file: "v${{ matrix.oc }}/Dockerfile"
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: "docker.io/appuio/oc:v${{ matrix.oc }}"
