@@ -41,6 +41,8 @@ The built images are available from [Docker Hub][hub]
 - run `make` to regenerate Dockerfiles
 - run `make images` to verify that images are building successfully
 
+If you see errors like `jq: error (at <stdin>:4): Cannot index string with string "prerelease"` check your credentials or see if the GitHub API calls return a valid response.
+
 > [APPUiO](https://appuio.ch) -
 > GitHub [@appuio](https://github.com/appuio) -
 > Twitter [@appuio](https://twitter.com/appuio)
