@@ -1,11 +1,9 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - "*"
   pull_request:
-    types: [opened, reopened]
+    branches:
+      - master
 
 jobs:
   image:
@@ -30,10 +28,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Login to quay.io
+        uses: docker/login-action@v1
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_IO_USERNAME }}
+          password: ${{ secrets.QUAY_IO_PASSWORD }}
       - name: Docker build
         uses: docker/build-push-action@v2
         with:
           context: "v${{ matrix.oc }}"
           file: "v${{ matrix.oc }}/Dockerfile"
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: "docker.io/appuio/oc:v${{ matrix.oc }}"
+          tags: |
+            docker.io/appuio/oc:v${{ matrix.oc }}
+            quay.io/appuio/oc:v${{ matrix.oc }}
