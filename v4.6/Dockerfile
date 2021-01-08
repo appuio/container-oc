@@ -1,21 +1,21 @@
 FROM docker.io/library/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
 
-ENV VERSION=v3.9.0 \
+ENV VERSION=4.6 \
     HELM2_VERSION=v2.17.0 \
-    HELM3_VERSION=v3.4.1 \
-    KUSTOMIZE_VERSION=v3.8.7 \
+    HELM3_VERSION=v3.4.2 \
+    KUSTOMIZE_VERSION=v3.9.1 \
     SEISO_VERSION=v0.7.1 \
     KUBEVAL_VERSION=0.15.0 \
-    ARCHIVE=openshift-origin-client-tools-v3.9.0-191fece-linux-64bit \
-    SHA256SUM=6ed2fb1579b14b4557e4450a807c97cd1b68a6c727cd1e12deedc5512907222e \
+    ARCHIVE=linux/oc \
+    SHA256SUM= \
     HELM2_SHA256SUM=f3bec3c7c55f6a9eb9e6586b8c503f370af92fe987fcbf741f37707606d70296 \
-    HELM3_SHA256SUM=538f85b4b73ac6160b30fd0ab4b510441aa3fa326593466e8bf7084a9c288420 \
-    KUSTOMIZE_SHA256SUM=4a3372d7bfdffe2eaf729e77f88bc94ce37dc84de55616bfe90aac089bf6fd02 \
+    HELM3_SHA256SUM=cacde7768420dd41111a4630e047c231afa01f67e49cc0c6429563e024da4b98 \
+    KUSTOMIZE_SHA256SUM=0fb2c3299ca3668205eac3a3a5be9a8e4a79d7c4fba18542a6c444e0d33ddbdd \
     SEISO_SHA256SUM=bb76f1809524f79b4a7d8827f03f1a01726e6f6d6ca85190a3527f9ed2e6fea1 \
     KUBEVAL_SHA256SUM=70bff2642a2886c0d9ebea452ffb81f333a956e26bbe0826fd7c6797e343e5aa \
     SOPS_VERSION=v3.6.1 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
-    OKD_DOWNLOAD_BASE_URL="https://github.com/openshift/origin/releases/download" \
+    OKD_DOWNLOAD_BASE_URL="https://mirror.openshift.com/pub/openshift-v4/clients/oc" \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
     SEISO_RELEASES_URL="https://github.com/appuio/seiso/releases/download" \
@@ -62,7 +62,7 @@ RUN set -x && \
     tar -xzvf /tmp/kustomize.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
     chmod 755 /tmp/kustomize /tmp/seiso /tmp/jq /bin/sops && \
-    mv -v "/tmp/${ARCHIVE}/oc" /bin/ && \
+    mv -v "/tmp/oc" /bin/ && \
     mv -v "/tmp/kubeval" /bin/ && \
     mv -v "/tmp/kustomize" /bin/ && \
     mv -v "/tmp/seiso" /bin/ && \
