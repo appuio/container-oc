@@ -55,12 +55,14 @@ helm3_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/relea
   | sed '/v2\./d' \
   | head -n 1)
 
-kustomize_version=$(curl -sS https://${api_user}api.github.com/repos/kubernetes-sigs/kustomize/releases \
-  | jq --raw-output \
-      '.[]| select(.prerelease|not) | .tag_name' \
-  | grep '^kustomize/' \
-  | sed -e 's#^kustomize/##' -e '/-pre/d' \
-  | head -n 1)
+# Pinned for the time being, see https://github.com/kubernetes-sigs/kustomize/issues/3412
+kustomize_version=v3.8.9
+# kustomize_version=$(curl -sS https://${api_user}api.github.com/repos/kubernetes-sigs/kustomize/releases \
+#   | jq --raw-output \
+#       '.[]| select(.prerelease|not) | .tag_name' \
+#   | grep '^kustomize/' \
+#   | sed -e 's#^kustomize/##' -e '/-pre/d' \
+#   | head -n 1)
 
 seiso_version=$(curl -sS https://${api_user}api.github.com/repos/appuio/seiso/releases \
   | jq --raw-output \
