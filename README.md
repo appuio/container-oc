@@ -15,15 +15,22 @@ Also ships the binaries for `helm`, `kustomize`, `kubeval` and `sops`, for your 
 
 ## Container Images
 
-The built images are available from [Docker Hub][hub]
+The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay]
 
 - `docker.io/appuio/oc:v4.6`
+- `quay.io/appuio/oc:v4.6`
 - `docker.io/appuio/oc:v4.5`
+- `quay.io/appuio/oc:v4.5`
 - `docker.io/appuio/oc:v4.4`
+- `quay.io/appuio/oc:v4.4`
 - `docker.io/appuio/oc:v4.3`
+- `quay.io/appuio/oc:v4.3`
 - `docker.io/appuio/oc:v4.2`
+- `quay.io/appuio/oc:v4.2`
 - `docker.io/appuio/oc:v4.1`
+- `quay.io/appuio/oc:v4.1`
 - `docker.io/appuio/oc:v3.11`
+- `quay.io/appuio/oc:v3.11`
 
 ## Caveats
 
@@ -45,6 +52,7 @@ If you see errors like `jq: error (at <stdin>:4): Cannot index string with strin
 > Twitter [@appuio](https://twitter.com/appuio)
 
 [hub]: https://hub.docker.com/r/appuio/oc/tags
+[quay]: https://quay.io/repository/appuio/oc?tab=tags
 [OpenShift]: https://github.com/openshift/origin
 [api-limit]: https://developer.github.com/v3/#rate-limiting
 [seiso]: https://github.com/appuio/seiso
