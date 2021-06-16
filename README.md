@@ -11,7 +11,8 @@
 
 A container image that can be used in CI/CD pipelines to deploy apps to OpenShift.
 
-Also ships the binaries for `helm`, `kustomize`, `kubeval` and `sops`, for your convenience.
+Also ships the binaries for `helm`, `kustomize`, `kubeval`, `sops` and the [moreutils](
+https://joeyh.name/code/moreutils/) package, for your convenience.
 
 ## Container Images
 

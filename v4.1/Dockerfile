@@ -70,7 +70,8 @@ RUN set -x && \
     ln -s /bin/oc /bin/kubectl && \
     ln -s /bin/helm3 /bin/helm && \
     rm -rf /tmp/* && \
-    yum install -y git gettext && \
+    yum install -y epel-release git gettext && \
+    yum install -y moreutils && \
     yum clean all -y && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH} && \
     helm2 init --client-only
