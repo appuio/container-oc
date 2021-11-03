@@ -18,6 +18,12 @@ https://joeyh.name/code/moreutils/) package, for your convenience.
 
 The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay]
 
+- `docker.io/appuio/oc:v4.9`
+- `quay.io/appuio/oc:v4.9`
+- `docker.io/appuio/oc:v4.8`
+- `quay.io/appuio/oc:v4.8`
+- `docker.io/appuio/oc:v4.7`
+- `quay.io/appuio/oc:v4.7`
 - `docker.io/appuio/oc:v4.6`
 - `quay.io/appuio/oc:v4.6`
 - `docker.io/appuio/oc:v4.5`
