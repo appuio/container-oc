@@ -23,10 +23,10 @@ shasum=""
 oc_tool_copy_command=""
 if [[ $ver == 'v4'* ]]; then
   # OpenShift v4
-  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/clients/oc"
-  archive="linux/oc"
+  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp"
+  archive="openshift-client-linux"
   shasum=""
-  version=${ver:1}
+  version="latest-${ver:1}"
   oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
 else
   # OpenShift v3
