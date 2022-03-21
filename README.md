@@ -36,8 +36,6 @@ The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay
 - `quay.io/appuio/oc:v4.2`
 - `docker.io/appuio/oc:v4.1`
 - `quay.io/appuio/oc:v4.1`
-- `docker.io/appuio/oc:v3.11`
-- `quay.io/appuio/oc:v3.11`
 
 ## Caveats
 
