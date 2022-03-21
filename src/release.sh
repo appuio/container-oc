@@ -1,6 +1,5 @@
 #!/bin/bash
-
-set -e
+set -e -u -o pipefail
 
 ver="$1"
 if [ -z "$ver" ]; then
@@ -12,7 +11,7 @@ cd "$(dirname "$0")/.."
 mkdir -p "$ver"
 
 api_user=""
-if [ -n "${GITHUB_API_USER}" ]; then
+if [ -n "${GITHUB_API_USER:-}" ]; then
     api_user="${GITHUB_API_USER}@"
 fi
 

@@ -2,18 +2,18 @@ FROM docker.io/library/centos:7@sha256:c73f515d06b0fa07bb18d8202035e739a494ce760
 
 ENV VERSION=latest-4.3 \
     HELM2_VERSION=v2.17.0 \
-    HELM3_VERSION=v3.7.1 \
+    HELM3_VERSION=v3.8.1 \
     KUSTOMIZE_VERSION=v3.8.9 \
     SEISO_VERSION=v1.0.0 \
     KUBEVAL_VERSION=v0.16.1 \
     ARCHIVE=openshift-client-linux \
     SHA256SUM= \
     HELM2_SHA256SUM=f3bec3c7c55f6a9eb9e6586b8c503f370af92fe987fcbf741f37707606d70296 \
-    HELM3_SHA256SUM=6cd6cad4b97e10c33c978ff3ac97bb42b68f79766f1d2284cfd62ec04cd177f4 \
+    HELM3_SHA256SUM=d643f48fe28eeb47ff68a1a7a26fc5142f348d02c8bc38d699674016716f61cd \
     KUSTOMIZE_SHA256SUM=0829ad1df8b25c70e6e686638c83bdf0987d25a2b357ccca5cf80a5877f3674d \
     SEISO_SHA256SUM=40484059c23993b4e8d6b0add3debebb31ed1155b49a5ebdae987698b3176202 \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
-    SOPS_VERSION=v3.7.1 \
+    SOPS_VERSION=v3.7.2 \
     SOPS_RELEASES_URL="https://github.com/mozilla/sops/releases/download" \
     OKD_DOWNLOAD_BASE_URL="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp" \
     HELM_RELEASES_URL="https://get.helm.sh" \
