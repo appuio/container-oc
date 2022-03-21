@@ -20,28 +20,13 @@ version=""
 archive=""
 shasum=""
 oc_tool_copy_command=""
-if [[ $ver == 'v4'* ]]; then
-  # OpenShift v4
-  okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp"
-  archive="openshift-client-linux"
-  shasum=""
-  version="latest-${ver:1}"
-  oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
-else
-  # OpenShift v3
-  okd_download_base_url="https://github.com/openshift/origin/releases/download"
-  version=$(curl -sS https://${api_user}api.github.com/repos/openshift/origin/releases \
-    | jq --arg ver "$ver" --raw-output \
-        '.[]| select((.prerelease|not) and (.tag_name|startswith($ver))) | .tag_name' \
-    | head -n 1)
-  url="https://github.com/openshift/origin/releases/download/${version}/CHECKSUM"
-  while read -r sha filename; do \
-    shasum=${sha}
-    archive="$(basename "$filename")"
-    archive=${archive%.tar.gz}
-  done <<<$(curl -sSL "$url" | grep 'client-tools.*linux-64bit.tar.gz$')
-  oc_tool_copy_command='mv -v "/tmp/${ARCHIVE}/oc" /bin/'
-fi
+
+# OpenShift v4
+okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp"
+archive="openshift-client-linux"
+shasum=""
+version="latest-${ver:1}"
+oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
 
 helm2_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
