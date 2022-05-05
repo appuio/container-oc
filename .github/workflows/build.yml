@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.QUAY_IO_USERNAME }}
           password: ${{ secrets.QUAY_IO_PASSWORD }}
       - name: Docker build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: "v${{ matrix.oc }}"
           file: "v${{ matrix.oc }}/Dockerfile"
