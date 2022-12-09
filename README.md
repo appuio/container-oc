@@ -18,29 +18,14 @@ https://joeyh.name/code/moreutils/) package, for your convenience.
 
 The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay]
 
+- `docker.io/appuio/oc:v4.11`
+- `quay.io/appuio/oc:v4.11`
+- `docker.io/appuio/oc:v4.10`
+- `quay.io/appuio/oc:v4.10`
 - `docker.io/appuio/oc:v4.9`
 - `quay.io/appuio/oc:v4.9`
 - `docker.io/appuio/oc:v4.8`
 - `quay.io/appuio/oc:v4.8`
-- `docker.io/appuio/oc:v4.7`
-- `quay.io/appuio/oc:v4.7`
-- `docker.io/appuio/oc:v4.6`
-- `quay.io/appuio/oc:v4.6`
-- `docker.io/appuio/oc:v4.5`
-- `quay.io/appuio/oc:v4.5`
-- `docker.io/appuio/oc:v4.4`
-- `quay.io/appuio/oc:v4.4`
-- `docker.io/appuio/oc:v4.3`
-- `quay.io/appuio/oc:v4.3`
-- `docker.io/appuio/oc:v4.2`
-- `quay.io/appuio/oc:v4.2`
-- `docker.io/appuio/oc:v4.1`
-- `quay.io/appuio/oc:v4.1`
-
-## Caveats
-
-- This image includes both Helm v2 and v3. Helm v3 is available as `helm3`, v2 as `helm2`
-  and `helm` symlinks to `helm3`.
 
 ## Development
 
@@ -51,6 +36,16 @@ The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay
 - run `make images` to verify that images are building successfully
 
 If you see errors like `jq: error (at <stdin>:4): Cannot index string with string "prerelease"` check your credentials or see if the GitHub API calls return a valid response.
+
+## Update OpenShift CLI Versions
+
+To add or remove a version of `oc`, update the list of versions in the following places:
+
+- `Makefile`
+- `README.md`
+- `.github/workflows/build.yml`
+
+And then run `make`.
 
 > [APPUiO](https://appuio.ch) -
 > GitHub [@appuio](https://github.com/appuio) -
