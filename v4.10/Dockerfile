@@ -1,6 +1,6 @@
 FROM docker.io/library/centos:7@sha256:c73f515d06b0fa07bb18d8202035e739a494ce760aa73129f60f4bf2bd22b407
 
-ENV VERSION=latest-4.3 \
+ENV VERSION=latest-4.10 \
     HELM3_VERSION=v3.10.2 \
     KUSTOMIZE_VERSION=v3.8.9 \
     SEISO_VERSION=v1.0.0 \

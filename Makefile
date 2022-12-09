@@ -1,4 +1,4 @@
-VERSIONS = v4.1 v4.2 v4.3 v4.4 v4.5 v4.6 v4.7 v4.8 v4.9
+VERSIONS = v4.8 v4.9 v4.10 v4.11
 
 all: clean $(addsuffix /Dockerfile, $(VERSIONS))
 
