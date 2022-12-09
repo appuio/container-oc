@@ -37,11 +37,6 @@ The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay
 - `docker.io/appuio/oc:v4.1`
 - `quay.io/appuio/oc:v4.1`
 
-## Caveats
-
-- This image includes both Helm v2 and v3. Helm v3 is available as `helm3`, v2 as `helm2`
-  and `helm` symlinks to `helm3`.
-
 ## Development
 
 - only hack files in `src/`
