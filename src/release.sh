@@ -19,14 +19,12 @@ okd_download_base_url=""
 version=""
 archive=""
 shasum=""
-oc_tool_copy_command=""
 
 # OpenShift v4
 okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp"
 archive="openshift-client-linux"
 shasum=""
 version="latest-${ver:1}"
-oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
 
 helm3_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
@@ -51,6 +49,16 @@ kubeval_version=$(curl -sS https://${api_user}api.github.com/repos/instrumenta/k
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
+sops_version=$(curl -sSL https://${api_user}api.github.com/repos/mozilla/sops/releases  \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | head -n 1)
+
+yq_version=$(curl -sS https://${api_user}api.github.com/repos/mikefarah/yq/releases \
+  | jq --raw-output \
+      '.[]| select(.prerelease|not) | .tag_name' \
+  | head -n 1)
+
 helm3_shasum=$(curl -sS https://get.helm.sh/helm-${helm3_version}-linux-amd64.tar.gz.sha256sum \
   | cut -f 1 -d ' ')
 
@@ -66,10 +74,8 @@ kubeval_shasum=$(curl -sSL https://github.com/instrumenta/kubeval/releases/downl
   | grep linux-amd64 \
   | cut -f 1 -d ' ')
 
-sops_version=$(curl -sSL https://${api_user}api.github.com/repos/mozilla/sops/releases  \
-  | jq --raw-output \
-      '.[]| select(.prerelease|not) | .tag_name' \
-  | head -n 1)
+yq_shasum=$(curl -sSL https://github.com/mikefarah/yq/releases/download/${yq_version}/checksums \
+  | awk '$1=="yq_linux_amd64" { print $19 }')
 
 echo "Newest versions for ${ver} release:"
 echo "- oc: ${version}"
@@ -78,6 +84,7 @@ echo "- kustomize: ${kustomize_version} (shasum: ${kustomize_shasum})"
 echo "- seiso: ${seiso_version} (shasum: ${seiso_shasum})"
 echo "- kubeval: ${kubeval_version} (shasum: ${kubeval_shasum})"
 echo "- sops: ${sops_version}"
+echo "- yq: ${yq_version} (shasum: ${yq_shasum})"
 
 sed \
   -e "s/%%VERSION%%/${version}/" \
@@ -86,12 +93,13 @@ sed \
   -e "s/%%SEISO_VERSION%%/${seiso_version}/" \
   -e "s/%%KUBEVAL_VERSION%%/${kubeval_version}/" \
   -e "s/%%SOPS_VERSION%%/${sops_version}/" \
+  -e "s/%%YQ_VERSION%%/${yq_version}/" \
   -e "s@%%OKD_DOWNLOAD_BASE_URL%%@${okd_download_base_url}@" \
   -e "s@%%ARCHIVE%%@${archive}@" \
   -e "s/%%SHA256SUM%%/${shasum}/" \
-  -e "s@%%OC_TOOL_COPY_COMMAND%%@${oc_tool_copy_command}@" \
   -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
   -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
   -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \
   -e "s/%%KUBEVAL_SHA256SUM%%/${kubeval_shasum}/" \
+  -e "s/%%YQ_SHA256SUM%%/${yq_shasum}/" \
   src/Dockerfile > "${ver}/Dockerfile"
