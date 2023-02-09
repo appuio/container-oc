@@ -19,14 +19,12 @@ okd_download_base_url=""
 version=""
 archive=""
 shasum=""
-oc_tool_copy_command=""
 
 # OpenShift v4
 okd_download_base_url="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp"
 archive="openshift-client-linux"
 shasum=""
 version="latest-${ver:1}"
-oc_tool_copy_command='mv -v "/tmp/oc" /bin/'
 
 helm3_version=$(curl -sS https://${api_user}api.github.com/repos/helm/helm/releases \
   | jq --raw-output \
@@ -99,7 +97,6 @@ sed \
   -e "s@%%OKD_DOWNLOAD_BASE_URL%%@${okd_download_base_url}@" \
   -e "s@%%ARCHIVE%%@${archive}@" \
   -e "s/%%SHA256SUM%%/${shasum}/" \
-  -e "s@%%OC_TOOL_COPY_COMMAND%%@${oc_tool_copy_command}@" \
   -e "s/%%HELM3_SHA256SUM%%/${helm3_shasum}/" \
   -e "s/%%KUSTOMIZE_SHA256SUM%%/${kustomize_shasum}/" \
   -e "s/%%SEISO_SHA256SUM%%/${seiso_shasum}/" \

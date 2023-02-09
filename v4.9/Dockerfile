@@ -22,7 +22,6 @@ ENV VERSION=latest-4.9 \
     KUBEVAL_RELEASES_URL="https://github.com/instrumenta/kubeval/releases/download" \
     YQ_RELEASES_URL="https://github.com/mikefarah/yq/releases/download" \
     JQ_URL="https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" \
-    YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
     OC_PLUGINS_REPO="https://github.com/appuio/oc-plugins" \
     KUBECTL_PLUGINS_PATH="/opt/kube/plugins"
 
@@ -33,19 +32,20 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     KUBEVAL_URL="${KUBEVAL_RELEASES_URL}/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
+    YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM3_URL" -o /tmp/helm3.tgz && \
     curl -sSL "$KUSTOMIZE_URL" -o /tmp/kustomize.tgz && \
-    curl -sSL "$SEISO_URL" -o /tmp/seiso && \
+    curl -sSL "$SEISO_URL" -o /bin/seiso && \
     curl -sSL "$KUBEVAL_URL" -o /tmp/kubeval.tgz && \
-    curl -sSL "$JQ_URL" -o /tmp/jq && \
+    curl -sSL "$JQ_URL" -o /bin/jq && \
     curl -sSL "$SOPS_URL" -o /bin/sops && \
     curl -sSL "$YQ_URL" -o /bin/yq && \
     echo "${SHA256SUM}  /tmp/oc.tgz" > /tmp/CHECKSUM && \
     echo "${HELM3_SHA256SUM}  /tmp/helm3.tgz" > /tmp/HELM3_CHECKSUM && \
     echo "${KUSTOMIZE_SHA256SUM}  /tmp/kustomize.tgz" > /tmp/KUSTOMIZE_CHECKSUM && \
-    echo "${SEISO_SHA256SUM}  /tmp/seiso" > /tmp/SEISO_CHECKSUM && \
+    echo "${SEISO_SHA256SUM}  /bin/seiso" > /tmp/SEISO_CHECKSUM && \
     echo "${KUBEVAL_SHA256SUM}  /tmp/kubeval.tgz" > /tmp/KUBEVAL_CHECKSUM && \
     echo "${YQ_SHA256SUM}  /bin/yq" > /tmp/YQ_CHECKSUM && \
     [ ! -z "$SHA256SUM" ] && sha256sum -c /tmp/CHECKSUM || echo "oc sha not checked" && \
@@ -60,12 +60,10 @@ RUN set -x && \
     mv -v "/tmp/linux-amd64/helm" /bin/helm3 && \
     tar -xzvf /tmp/kustomize.tgz && \
     tar -xzvf /tmp/kubeval.tgz && \
-    chmod 755 /tmp/kustomize /tmp/seiso /tmp/jq /bin/sops /bin/yq && \
+    chmod 755 /tmp/kustomize /bin/seiso /bin/jq /bin/sops /bin/yq && \
     mv -v "/tmp/oc" /bin/ && \
     mv -v "/tmp/kubeval" /bin/ && \
     mv -v "/tmp/kustomize" /bin/ && \
-    mv -v "/tmp/seiso" /bin/ && \
-    mv -v "/tmp/jq" /bin/ && \
     ln -s /bin/oc /bin/kubectl && \
     ln -s /bin/helm3 /bin/helm && \
     rm -rf /tmp/* && \
