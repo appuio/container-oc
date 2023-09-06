@@ -1,4 +1,4 @@
-FROM docker.io/library/centos:7@sha256:be65f488b7764ad3638f236b7b515b3678369a5124c47b8d32916d6487418ea4
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.8-1037
 
 ENV VERSION=%%VERSION%% \
     HELM3_VERSION=%%HELM3_VERSION%% \
@@ -33,6 +33,7 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
+    microdnf install -y tar gzip git && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM3_URL" -o /tmp/helm3.tgz && \
@@ -67,7 +68,4 @@ RUN set -x && \
     ln -s /bin/oc /bin/kubectl && \
     ln -s /bin/helm3 /bin/helm && \
     rm -rf /tmp/* && \
-    yum install -y epel-release git gettext && \
-    yum install -y moreutils && \
-    yum clean all -y && \
     git clone --depth=1 ${OC_PLUGINS_REPO} ${KUBECTL_PLUGINS_PATH}
