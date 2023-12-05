@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.8-1037
+FROM registry.access.redhat.com/ubi9-minimal:9.3
 
 ENV VERSION=%%VERSION%% \
     HELM3_VERSION=%%HELM3_VERSION%% \
@@ -33,7 +33,7 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git && \
+    microdnf install -y tar gzip git python3 && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM3_URL" -o /tmp/helm3.tgz && \

@@ -11,23 +11,20 @@
 
 A container image that can be used in CI/CD pipelines to deploy apps to OpenShift.
 
-Also ships the binaries for `helm`, `kustomize`, `kubeval`, `sops`, `yq` and the [moreutils](
-https://joeyh.name/code/moreutils/) package, for your convenience.
+Also ships the binaries for `helm`, `kustomize`, `kubeval`, `sops`, `yq` and Python3, for your convenience.
 
 ## Container Images
 
 The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay]
 
+- `docker.io/appuio/oc:v4.14`
+- `quay.io/appuio/oc:v4.14`
+- `docker.io/appuio/oc:v4.13`
+- `quay.io/appuio/oc:v4.13`
 - `docker.io/appuio/oc:v4.12`
 - `quay.io/appuio/oc:v4.12`
 - `docker.io/appuio/oc:v4.11`
 - `quay.io/appuio/oc:v4.11`
-- `docker.io/appuio/oc:v4.10`
-- `quay.io/appuio/oc:v4.10`
-- `docker.io/appuio/oc:v4.9`
-- `quay.io/appuio/oc:v4.9`
-- `docker.io/appuio/oc:v4.8`
-- `quay.io/appuio/oc:v4.8`
 
 ## Development
 

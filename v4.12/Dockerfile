@@ -1,19 +1,19 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.8-1037
+FROM registry.access.redhat.com/ubi9-minimal:9.3
 
 ENV VERSION=latest-4.12 \
-    HELM3_VERSION=v3.12.3 \
+    HELM3_VERSION=v3.13.2 \
     KUBEVAL_VERSION=v0.16.1 \
-    KUSTOMIZE_VERSION=v5.1.1 \
+    KUSTOMIZE_VERSION=v5.2.1 \
     SEISO_VERSION=v1.0.0 \
-    SOPS_VERSION=v3.7.3 \
-    YQ_VERSION=v4.35.1 \
+    SOPS_VERSION=v3.8.1 \
+    YQ_VERSION=v4.40.4 \
     ARCHIVE=openshift-client-linux \
-    HELM3_SHA256SUM=1b2313cd198d45eab00cc37c38f6b1ca0a948ba279c29e322bdf426d406129b5 \
+    HELM3_SHA256SUM=55a8e6dce87a1e52c61e0ce7a89bf85b38725ba3e8deb51d4a08ade8a2c70b2d \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
-    KUSTOMIZE_SHA256SUM=3b30477a7ff4fb6547fa77d8117e66d995c2bdd526de0dafbf8b7bcb9556c85d \
+    KUSTOMIZE_SHA256SUM=88346543206b889f9287c0b92c70708040ecd5aad54dd33019c4d6579cd24de8 \
     SEISO_SHA256SUM=40484059c23993b4e8d6b0add3debebb31ed1155b49a5ebdae987698b3176202 \
     SHA256SUM= \
-    YQ_SHA256SUM=bd695a6513f1196aeda17b174a15e9c351843fb1cef5f9be0af170f2dd744f08 \
+    YQ_SHA256SUM=f9163412d9aa2aa55e888fdcaf2b4053ada20074be35f701424caa7163100704 \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUBEVAL_RELEASES_URL="https://github.com/instrumenta/kubeval/releases/download" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
@@ -33,7 +33,7 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git && \
+    microdnf install -y tar gzip git python3 && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM3_URL" -o /tmp/helm3.tgz && \

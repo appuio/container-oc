@@ -14,10 +14,10 @@ jobs:
     strategy:
       matrix:
         oc:
-          - "4.10"
           - "4.11"
           - "4.12"
           - "4.13"
+          - "4.14"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
