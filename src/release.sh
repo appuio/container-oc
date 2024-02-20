@@ -49,7 +49,7 @@ kubeval_version=$(curl -sS https://${api_user}api.github.com/repos/instrumenta/k
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
 
-sops_version=$(curl -sSL https://${api_user}api.github.com/repos/mozilla/sops/releases  \
+sops_version=$(curl -sSL https://${api_user}api.github.com/repos/getsops/sops/releases  \
   | jq --raw-output \
       '.[]| select(.prerelease|not) | .tag_name' \
   | head -n 1)
