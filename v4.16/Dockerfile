@@ -1,16 +1,16 @@
 FROM registry.access.redhat.com/ubi9-minimal:9.4-1227.1726694542
 
 ENV VERSION=latest-4.16 \
-    HELM3_VERSION=v3.15.4 \
+    HELM3_VERSION=v3.16.2 \
     KUBEVAL_VERSION=v0.16.1 \
-    KUSTOMIZE_VERSION=v5.4.3 \
+    KUSTOMIZE_VERSION=v5.5.0 \
     SEISO_VERSION=v1.0.0 \
-    SOPS_VERSION=v3.9.0 \
+    SOPS_VERSION=v3.9.1 \
     YQ_VERSION=v4.44.3 \
     ARCHIVE=openshift-client-linux \
-    HELM3_SHA256SUM=11400fecfc07fd6f034863e4e0c4c4445594673fd2a129e701fe41f31170cfa9 \
+    HELM3_SHA256SUM=9318379b847e333460d33d291d4c088156299a26cd93d570a7f5d0c36e50b5bb \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
-    KUSTOMIZE_SHA256SUM=3669470b454d865c8184d6bce78df05e977c9aea31c30df3c669317d43bcc7a7 \
+    KUSTOMIZE_SHA256SUM=6703a3a70a0c47cf0b37694030b54f1175a9dfeb17b3818b623ed58b9dbc2a77 \
     SEISO_SHA256SUM=40484059c23993b4e8d6b0add3debebb31ed1155b49a5ebdae987698b3176202 \
     SHA256SUM= \
     YQ_SHA256SUM=a2c097180dd884a8d50c956ee16a9cec070f30a7947cf4ebf87d5f36213e9ed7 \
@@ -33,7 +33,7 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git python3 diffutils && \
+    microdnf install -y tar gzip git python3 diffutils tzdata && \
     cd /tmp && \
     curl -sSL "$URL" -o /tmp/oc.tgz && \
     curl -sSL "$HELM3_URL" -o /tmp/helm3.tgz && \
