@@ -1,14 +1,14 @@
 FROM registry.access.redhat.com/ubi9-minimal:9.5-1739420147
 
 ENV VERSION=latest-4.13 \
-    HELM3_VERSION=v3.17.1 \
+    HELM3_VERSION=v3.17.3 \
     KUBEVAL_VERSION=v0.16.1 \
     KUSTOMIZE_VERSION=v5.6.0 \
     SEISO_VERSION=v1.0.0 \
-    SOPS_VERSION=v3.9.4 \
+    SOPS_VERSION=v3.10.2 \
     YQ_VERSION=v4.45.1 \
     ARCHIVE=openshift-client-linux \
-    HELM3_SHA256SUM=3b66f3cd28409f29832b1b35b43d9922959a32d795003149707fea84cbcd4469 \
+    HELM3_SHA256SUM=ee88b3c851ae6466a3de507f7be73fe94d54cbf2987cbaa3d1a3832ea331f2cd \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
     KUSTOMIZE_SHA256SUM=54e4031ddc4e7fc59e408da29e7c646e8e57b8088c51b84b3df0864f47b5148f \
     SEISO_SHA256SUM=40484059c23993b4e8d6b0add3debebb31ed1155b49a5ebdae987698b3176202 \
@@ -33,7 +33,7 @@ RUN set -x && \
     SEISO_URL="${SEISO_RELEASES_URL}/${SEISO_VERSION}/seiso_linux_amd64" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git python3 diffutils tzdata && \
+    microdnf install -y tar gzip git python3 diffutils && \
     microdnf update tzdata -y && \
     microdnf reinstall -y tzdata && \
     cd /tmp && \
