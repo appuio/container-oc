@@ -1,6 +1,6 @@
 # For supported versions see:
 # https://access.redhat.com/support/policy/updates/openshift/#dates
-VERSIONS = v4.12 v4.13 v4.14 v4.15 v4.16 v4.17 v4.18
+VERSIONS = v4.12 v4.13 v4.14 v4.15 v4.16 v4.17 v4.18 v4.19
 # Also update in `.github/workflows/build.yml`!
 
 all: clean $(addsuffix /Dockerfile, $(VERSIONS))
