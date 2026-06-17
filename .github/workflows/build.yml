@@ -50,3 +50,4 @@ jobs:
           tags: |
             docker.io/appuio/oc:v${{ matrix.oc }}
             quay.io/appuio/oc:v${{ matrix.oc }}
+            quay.io/appuio/oc:v${{ matrix.oc }}-${{ github.run_number }}.${{ github.run_attempt }}
