@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9-minimal:9.8-1785339117
+FROM registry.access.redhat.com/ubi9-minimal:9.8-1785777232
 
 ENV VERSION=latest-4.20 \
     HELM3_VERSION=v4.2.0 \
