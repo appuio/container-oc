@@ -56,6 +56,6 @@ jobs:
           file: "v${{ matrix.oc }}/Dockerfile"
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: |
-            docker.io/appuio/oc:v${{ matrix.oc }}
-            quay.io/appuio/oc:v${{ matrix.oc }}
             quay.io/appuio/oc:v${{ matrix.oc }}-${{ github.run_number }}.${{ github.run_attempt }}
+            quay.io/appuio/oc:v${{ matrix.oc }}
+            docker.io/appuio/oc:v${{ matrix.oc }}
