@@ -17,6 +17,8 @@ Also ships the binaries for `helm`, `kustomize`, `kubeval`, `sops`, `yq` and Pyt
 
 The built images are available from [Docker Hub][hub] and [Red Hat Quay.io][quay]
 
+- `docker.io/appuio/oc:v4.22`
+- `quay.io/appuio/oc:v4.22`
 - `docker.io/appuio/oc:v4.21`
 - `quay.io/appuio/oc:v4.21`
 - `docker.io/appuio/oc:v4.20`
