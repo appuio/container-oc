@@ -11,6 +11,13 @@ on:
 jobs:
   image:
     runs-on: ubuntu-latest
+    # NOTE(sg): We set continue-on-error=true so that one failing version
+    # doesn't cancel all other builds. We've observed that builds can get
+    # cancelled while they're pushing the built image to quay.io which can
+    # have side-effects such as the per-build tag not being created (which in
+    # turn then triggers quay.io to garbage collect the build's layers when a
+    # new version is built).
+    continue-on-error: true
     strategy:
       matrix:
         oc:
