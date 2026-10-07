@@ -24,6 +24,7 @@ jobs:
           - "4.19"
           - "4.20"
           - "4.21"
+          - "4.22"
     steps:
       - uses: actions/checkout@v7
       - name: Set up Docker Buildx

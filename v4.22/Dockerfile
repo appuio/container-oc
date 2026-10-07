@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi9-minimal:9.8-1791279563
 
-ENV VERSION=latest-4.14 \
+ENV VERSION=latest-4.22 \
     HELM3_VERSION=v4.3.0 \
     KUBEVAL_VERSION=v0.16.1 \
     KUSTOMIZE_VERSION=v5.8.2 \

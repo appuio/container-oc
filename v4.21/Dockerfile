@@ -1,17 +1,17 @@
 FROM registry.access.redhat.com/ubi9-minimal:9.8-1791279563
 
 ENV VERSION=latest-4.21 \
-    HELM3_VERSION=v4.2.0 \
+    HELM3_VERSION=v4.3.0 \
     KUBEVAL_VERSION=v0.16.1 \
-    KUSTOMIZE_VERSION=v5.8.1 \
-    SOPS_VERSION=v3.13.1 \
-    YQ_VERSION=v4.53.2 \
+    KUSTOMIZE_VERSION=v5.8.2 \
+    SOPS_VERSION=v3.13.3 \
+    YQ_VERSION=v4.54.1 \
     ARCHIVE=openshift-client-linux \
-    HELM3_SHA256SUM=97dbeb971be4ac4b27e3839976d9564c0fb35c6f3b1da89dd1e292d236af4096 \
+    HELM3_SHA256SUM=86584a54def73570558f66f5111cc53dfed56689637ae32c1201205d494f54fb \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
-    KUSTOMIZE_SHA256SUM=029a7f0f4e1932c52a0476cf02a0fd855c0bb85694b82c338fc648dcb53a819d \
+    KUSTOMIZE_SHA256SUM=06af0a202c2b831207d0173f9c9cdb1b30abceca0747cb3fbb72792d26055c95 \
     SHA256SUM= \
-    YQ_SHA256SUM=d56bf5c6819e8e696340c312bd70f849dc1678a7cda9c2ad63eebd906371d56b \
+    YQ_SHA256SUM=8e34fc298390875de416e6a4afcb8cabeceb25d9aa8506c1a2f9353cf702ea5f \
     HELM_RELEASES_URL="https://get.helm.sh" \
     KUBEVAL_RELEASES_URL="https://github.com/instrumenta/kubeval/releases/download" \
     KUSTOMIZE_RELEASES_URL="https://github.com/kubernetes-sigs/kustomize/releases/download" \
