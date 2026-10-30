@@ -1,15 +1,15 @@
 FROM registry.access.redhat.com/ubi9-minimal:9.8-1793253163
 
 ENV VERSION=latest-4.15 \
-    HELM3_VERSION=v4.3.0 \
+    HELM3_VERSION=v4.3.1 \
     KUBEVAL_VERSION=v0.16.1 \
-    KUSTOMIZE_VERSION=v5.8.2 \
+    KUSTOMIZE_VERSION=v5.8.3 \
     SOPS_VERSION=v3.13.3 \
     YQ_VERSION=v4.54.1 \
     ARCHIVE=openshift-client-linux \
-    HELM3_SHA256SUM=86584a54def73570558f66f5111cc53dfed56689637ae32c1201205d494f54fb \
+    HELM3_SHA256SUM=0403a88ae20913d11b10a2467b50087721fea7581736da6b9d3992f5357fe54b \
     KUBEVAL_SHA256SUM=2d6f9bda1423b93787fa05d9e8dfce2fc1190fefbcd9d0936b9635f3f78ba790 \
-    KUSTOMIZE_SHA256SUM=06af0a202c2b831207d0173f9c9cdb1b30abceca0747cb3fbb72792d26055c95 \
+    KUSTOMIZE_SHA256SUM=cb9e31198d3f63b44848bd0afc4c8efc56e6cfef9c93a4a39a211940e6decd61 \
     SHA256SUM= \
     YQ_SHA256SUM=8e34fc298390875de416e6a4afcb8cabeceb25d9aa8506c1a2f9353cf702ea5f \
     HELM_RELEASES_URL="https://get.helm.sh" \
@@ -29,7 +29,7 @@ RUN set -x && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git python3 diffutils findutils && \
+    microdnf install -y tar gzip git python3 diffutils findutils httpd-tools && \
     microdnf update tzdata -y && \
     microdnf reinstall -y tzdata && \
     cd /tmp && \
