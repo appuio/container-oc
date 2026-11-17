@@ -29,7 +29,7 @@ RUN set -x && \
     KUSTOMIZE_URL="${KUSTOMIZE_RELEASES_URL}/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" && \
     SOPS_URL="${SOPS_RELEASES_URL}/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64" && \
     YQ_URL="${YQ_RELEASES_URL}/${YQ_VERSION}/yq_linux_amd64" && \
-    microdnf install -y tar gzip git python3 diffutils findutils && \
+    microdnf install -y tar gzip git python3 diffutils findutils httpd-tools && \
     microdnf update tzdata -y && \
     microdnf reinstall -y tzdata && \
     cd /tmp && \
